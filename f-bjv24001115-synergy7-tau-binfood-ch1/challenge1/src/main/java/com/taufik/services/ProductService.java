@@ -17,15 +17,21 @@ public class ProductService {
 
     public static boolean handleProductSelect(int userOption) {
         try {
-            if (userOption >= 1 && userOption <= 5) {
-                while (ProductController.productQuantitySection(userOption));
-            } else if (userOption == 99) {
-                if (Cart.getCart() == null) throw new Exception("Keranjang masih kosong!");
-                ProductController.checkoutSection();
-            } else if (userOption == 0) {
-                UserController.logout();
-            } else {
-                throw new Exception();
+            switch (userOption) {
+                case 0:
+                    UserController.logout();
+                case 99:
+                    if (Cart.getCart() == null) throw new Exception("Keranjang masih kosong!");
+                    ProductController.checkoutSection();
+                    break;
+            
+                default:
+                    if (userOption > 0 && userOption < Product.getProducts()[0].length) {
+                        while (ProductController.productQuantitySection(userOption));
+                    } else {
+                        throw new Exception();
+                    }
+                    break;
             }
         } catch (Exception e) {
             Util.handleInputMismatch(e.getMessage());

@@ -10,7 +10,7 @@ public class PaymentController {
             try {
                 Util.header("Pilih Metode Pembayaran");
                 PaymentService.getPaymentMethodData();
-                Util.oneMenu("Kembali ke Menu Utama");
+                Util.generalMenu("Kembali ke Menu Utama","");
     
                 int userOption = Util.userOption();;
                 

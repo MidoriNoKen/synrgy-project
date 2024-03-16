@@ -1,6 +1,6 @@
 package com.taufik;
 
-import com.taufik.controllers.ProductController;
+import com.taufik.controllers.MainController;
 import com.taufik.controllers.UserController;
 import com.taufik.utils.Util;
 
@@ -11,7 +11,7 @@ public class Main {
             Boolean status = UserController.authSection();
             
             if (status) {
-                while (ProductController.selectProductSection());
+                while (MainController.mainSection());
             } else {
                 Util.pausedLine("Username atau Password yang anda masukkan salah!");
             }

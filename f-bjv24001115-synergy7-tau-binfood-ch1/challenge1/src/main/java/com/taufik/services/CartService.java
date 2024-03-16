@@ -4,9 +4,7 @@ import com.taufik.entities.Cart;
 
 public class CartService {
     public static boolean addToCartHandle(int userQuantity, String productName, String productPrice) {
-        if (userQuantity != 0) {
-            Cart.saveCart(userQuantity, productName, productPrice);
-        }
+        if (userQuantity != 0) Cart.saveCart(userQuantity, productName, productPrice);
         return false;
     }
 

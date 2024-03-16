@@ -60,11 +60,8 @@ public class Util {
 
     public static void generalMenu(String main, String additional) {
         System.out.println("\n0. " + main);
-        System.out.println("99. " + additional + "\n");
-    }
-
-    public static void oneMenu(String action) {
-        System.out.println("\n0. " + action + "\n");
+        if (!additional.isEmpty()) System.out.println("99. " + additional);
+        System.out.println();
     }
 
     public static int order (int i) {
