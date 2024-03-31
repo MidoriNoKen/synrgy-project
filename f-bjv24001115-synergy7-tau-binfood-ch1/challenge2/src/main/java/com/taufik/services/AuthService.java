@@ -1,6 +1,7 @@
 package com.taufik.services;
 
 import com.taufik.models.entities.Staff;
+import com.taufik.models.entities.User;
 
 public class AuthService {
 
@@ -10,7 +11,7 @@ public class AuthService {
         staff.getUsername().equals(username) &&
         staff.getPassword().equals(password)
       ) {
-        staff.setLoggedUsername(username);
+        User.setLoggedUsername(username);
         return true;
       }
     }
@@ -18,6 +19,6 @@ public class AuthService {
   }
 
   public static String getLoggedUsername() {
-    return new Staff().getLoggedUsername();
+    return User.getLoggedUsername();
   }
 }

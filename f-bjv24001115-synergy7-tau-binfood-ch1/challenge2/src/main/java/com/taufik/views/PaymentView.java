@@ -63,7 +63,7 @@ public class PaymentView {
         case 0:
           return;
         default:
-          if (userOption < PaymentController.getPaymentMethodSize()) {
+          if (userOption <= PaymentController.getPaymentMethodSize()) {
             paymentNominalPage(userOption);
           } else {
             throw new Exception();

@@ -28,9 +28,11 @@ public class CashierView {
 
     switch (option) {
       case 0:
-        break;
+        DashboardView.DashboardPage();
       case 99:
         CashierController.postPrintReceipt();
+        Util.clearData();
+        DashboardView.DashboardPage();
     }
   }
 }
