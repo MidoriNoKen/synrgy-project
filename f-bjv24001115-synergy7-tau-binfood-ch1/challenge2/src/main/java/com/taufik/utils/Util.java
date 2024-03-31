@@ -1,5 +1,7 @@
 package com.taufik.utils;
 
+import com.taufik.services.CartService;
+import com.taufik.services.PaymentService;
 import java.util.Scanner;
 
 public class Util {
@@ -29,10 +31,10 @@ public class Util {
     return value;
   }
 
-  public static float userValue() {
+  public static Long userValue() {
     Scanner userInput = new Scanner(System.in);
     System.out.print("=> ");
-    float value = userInput.nextFloat();
+    Long value = userInput.nextLong();
     System.out.println();
 
     return value;
@@ -45,10 +47,6 @@ public class Util {
     System.out.print("Tekan tombol apapun untuk melanjutkan...");
     userInput.nextLine();
     System.out.println();
-  }
-
-  public static String formatedFloat(Float value) {
-    return String.format("%.0f", value);
   }
 
   public static String additionSeparator() {
@@ -68,9 +66,9 @@ public class Util {
       Util.pausedLine(message);
     }
   }
-  //   public static void clearData() {
-  //     Cart.setCart(null);
-  //     Payment.setNominalPayment(0);
-  //     Payment.setPaymentMethod(null);
-  //   }
+
+  public static void clearData() {
+    CartService.clear();
+    PaymentService.clear();
+  }
 }

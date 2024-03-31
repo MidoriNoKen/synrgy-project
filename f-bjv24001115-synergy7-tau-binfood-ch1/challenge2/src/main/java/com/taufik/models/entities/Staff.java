@@ -19,6 +19,7 @@ public class Staff extends User {
   private int age;
   private LocalDate bornDate;
   private Gender gender;
+  private String loggedUsername;
   private static Map<Long, Staff> staffs = new HashMap<>();
 
   public Staff(Long id, String username, String password, String email) {

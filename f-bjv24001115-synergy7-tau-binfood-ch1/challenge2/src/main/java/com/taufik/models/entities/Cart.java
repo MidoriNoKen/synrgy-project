@@ -1,7 +1,7 @@
 package com.taufik.models.entities;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,15 +14,18 @@ public class Cart {
   private Long id;
   private Long productId;
   private int quantity;
-  private static Map<Long, Cart> carts = new HashMap<>();
+  private static List<Cart> carts = new ArrayList<>();
 
-  public Cart(Long id, Long productId, int quantity) {
-    this.id = id;
+  public Cart(Long productId, int quantity) {
     this.productId = productId;
     this.quantity = quantity;
   }
 
-  public static void addProductToCart(Long id, Cart cart) {
-    carts.put(cart.getId(), cart);
+  public static void addProductToCart(Cart cart) {
+    carts.add(cart);
+  }
+
+  public static List<Cart> getAll() {
+    return carts;
   }
 }

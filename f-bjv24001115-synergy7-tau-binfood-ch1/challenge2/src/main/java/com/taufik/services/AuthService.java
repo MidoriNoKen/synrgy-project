@@ -10,9 +10,14 @@ public class AuthService {
         staff.getUsername().equals(username) &&
         staff.getPassword().equals(password)
       ) {
+        staff.setLoggedUsername(username);
         return true;
       }
     }
     return false;
+  }
+
+  public static String getLoggedUsername() {
+    return new Staff().getLoggedUsername();
   }
 }
