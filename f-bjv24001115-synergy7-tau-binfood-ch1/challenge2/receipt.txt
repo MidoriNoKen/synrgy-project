@@ -1,0 +1,24 @@
+====================
+BinarFood
+====================
+Terimakasih sudah memesan di BinarFood
+
+Di bawah ini adalah pesanan anda
+
+Nasi Goreng              15000    1
+Mi Goreng                26000    2
+Nasi + Ayam              54000    3
+Es Teh Manis             12000    4
+Es Jeruk                 25000    5
+------------------------------
+Total                   132000   15
+
+Metode Pembayaran   Online Payment      
+Nominal Pembayaran  150000              
+Total Kembalian     18000               
+
+Nama Kasir          admin               
+
+====================
+Simpan struk ini sebagai bukti pembayaran
+====================
