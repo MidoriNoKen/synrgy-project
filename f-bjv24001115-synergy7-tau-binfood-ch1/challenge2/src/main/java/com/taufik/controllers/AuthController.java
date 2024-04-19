@@ -1,16 +1,13 @@
 package com.taufik.controllers;
 
+import com.taufik.App;
 import com.taufik.services.AuthService;
 import com.taufik.utils.Util;
 import com.taufik.views.LoginView;
-import java.util.Optional;
 
 public class AuthController {
 
-  public static Optional<Boolean> authSection(
-    String username,
-    String password
-  ) {
+  public static boolean authSection(String username, String password) {
     return AuthService.validation(username, password);
   }
 

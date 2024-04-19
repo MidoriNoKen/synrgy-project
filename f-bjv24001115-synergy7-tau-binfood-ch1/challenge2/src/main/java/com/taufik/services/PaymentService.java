@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PaymentService {
 
-  public static Payment payment;
+  static Payment payment;
 
   public static List<String> getAllPaymentMethods() {
     return Payment.getAllPaymentMethods().isEmpty()

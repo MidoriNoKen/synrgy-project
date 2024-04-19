@@ -11,17 +11,20 @@ public class CartService {
   }
 
   public static Long getTotalPrice() {
-    return CartService
-      .getAll()
-      .stream()
-      .mapToLong(cart ->
-        Product.getById(cart.getProductId()).getPrice() * cart.getQuantity()
-      )
-      .sum();
+    Long totalPrice = 0L;
+    for (Cart cart : CartService.getAll()) {
+      totalPrice +=
+        Product.getById(cart.getProductId()).getPrice() * cart.getQuantity();
+    }
+    return totalPrice;
   }
 
   public static Long getTotalQuantity() {
-    return CartService.getAll().stream().mapToLong(Cart::getQuantity).sum();
+    Long totalQuantity = 0L;
+    for (Cart cart : CartService.getAll()) {
+      totalQuantity += cart.getQuantity();
+    }
+    return totalQuantity;
   }
 
   public static void add(Long productId, int quantity) {

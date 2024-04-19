@@ -5,27 +5,15 @@ import com.taufik.models.enums.Gender;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Map;
-import java.util.Optional;
 
 public class StaffService {
 
   public static Map<Long, Staff> getAll() {
-    return Optional
-      .ofNullable(Staff.getAll())
-      .orElseThrow(() -> new IllegalStateException("Data tidak tersedia"));
+    return Staff.getAll().isEmpty() ? null : Staff.getAll();
   }
 
   public static Staff getById(Long id) {
-    if (id == null) {
-      throw new IllegalArgumentException("ID tidak valid");
-    }
-
-    Staff staff = Staff.getById(id);
-    if (staff == null) {
-      throw new IllegalArgumentException("ID tidak valid");
-    }
-
-    return staff;
+    return Staff.getById(id) == null ? null : Staff.getById(id);
   }
 
   public static void add(
@@ -38,11 +26,8 @@ public class StaffService {
     LocalDate bornDate,
     String address
   ) {
-    if (id == null) {
-      throw new IllegalArgumentException("ID tidak valid");
-    }
-
     if (
+      id == null ||
       username == null ||
       password == null ||
       email == null ||
@@ -54,9 +39,9 @@ public class StaffService {
       throw new IllegalArgumentException("Data yang dimasukkan tidak valid");
     }
 
-    if (Staff.getById(id) != null) {
-      throw new IllegalArgumentException("ID yang dimasukkan sudah ada");
-    }
+    if (Staff.getById(id) != null) throw new IllegalArgumentException(
+      "ID yang dimasukkan sudah ada"
+    );
 
     int age = Period.between(bornDate, LocalDate.now()).getYears();
 

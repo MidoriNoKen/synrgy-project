@@ -1,0 +1,20 @@
+====================
+BinarFood
+====================
+Terimakasih sudah memesan di BinarFood
+
+Di bawah ini adalah pesanan anda
+
+Nasi Goreng              15000    1
+------------------------------
+Total                    15000    1
+
+Metode Pembayaran   Bank                
+Nominal Pembayaran  20000               
+Total Kembalian     5000                
+
+Nama Kasir          admin               
+
+====================
+Simpan struk ini sebagai bukti pembayaran
+====================
