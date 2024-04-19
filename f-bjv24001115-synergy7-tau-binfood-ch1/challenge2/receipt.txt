@@ -6,16 +6,12 @@ Terimakasih sudah memesan di BinarFood
 Di bawah ini adalah pesanan anda
 
 Nasi Goreng              15000    1
-Mi Goreng                26000    2
-Nasi + Ayam              54000    3
-Es Teh Manis             12000    4
-Es Jeruk                 25000    5
 ------------------------------
-Total                   132000   15
+Total                    15000    1
 
-Metode Pembayaran   Online Payment      
-Nominal Pembayaran  150000              
-Total Kembalian     18000               
+Metode Pembayaran   Bank                
+Nominal Pembayaran  20000               
+Total Kembalian     5000                
 
 Nama Kasir          admin               
 
