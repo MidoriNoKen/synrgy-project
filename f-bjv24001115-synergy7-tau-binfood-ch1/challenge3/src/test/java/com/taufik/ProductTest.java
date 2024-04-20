@@ -72,6 +72,16 @@ public class ProductTest {
   }
 
   @Test
+  void testAdd_NullId() {
+    assertThrows(
+      IllegalArgumentException.class,
+      () -> {
+        ProductService.add(null, "Product", 100L);
+      }
+    );
+  }
+
+  @Test
   void testAdd_NullName() {
     assertThrows(
       IllegalArgumentException.class,
@@ -92,7 +102,14 @@ public class ProductTest {
   }
 
   @Test
-  void testGetById_NotFound() {
-    assertNull(ProductService.getById(1L));
+  void testAdd_DuplicateId() {
+    ProductService.add(1L, "Product 1", 100L);
+
+    assertThrows(
+      IllegalArgumentException.class,
+      () -> {
+        ProductService.add(1L, "Product 2", 200L);
+      }
+    );
   }
 }

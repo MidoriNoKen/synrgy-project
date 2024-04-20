@@ -2,8 +2,6 @@ package com.taufik;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.taufik.services.CartService;
-import com.taufik.services.PaymentService;
 import com.taufik.utils.Util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,6 +20,12 @@ public class UtilTest {
   @BeforeEach
   void setUp() {
     System.setOut(new PrintStream(outputStreamCaptor));
+  }
+
+  @Test
+  void testInit() {
+    Util util = new Util();
+    assertNotNull(util);
   }
 
   @Test
@@ -60,6 +64,15 @@ public class UtilTest {
   }
 
   @Test
+  void testPausedLine() {
+    ByteArrayInputStream in = new ByteArrayInputStream("\n".getBytes());
+    System.setIn(in);
+
+    Util.pausedLine("Test paused message");
+    assertTrue(outputStreamCaptor.toString().contains("Test paused message"));
+  }
+
+  @Test
   void testAdditionSeparator() {
     String separator = Util.additionSeparator();
     assertEquals("------------------------------+", separator);
@@ -70,6 +83,26 @@ public class UtilTest {
     Util.generalMenu("Main Menu", "Additional Option");
     assertTrue(outputStreamCaptor.toString().contains("Main Menu"));
     assertTrue(outputStreamCaptor.toString().contains("Additional Option"));
+  }
+
+  @Test
+  void testHandleInputMismatchWithMessage() {
+    ByteArrayInputStream in = new ByteArrayInputStream("\n".getBytes());
+    System.setIn(in);
+
+    Util.handleInputMismatch("Test mismatch message");
+    assertTrue(outputStreamCaptor.toString().contains("Test mismatch message"));
+  }
+
+  @Test
+  void testHandleInputMismatchWithoutMessage() {
+    ByteArrayInputStream in = new ByteArrayInputStream("\n".getBytes());
+    System.setIn(in);
+
+    Util.handleInputMismatch(null);
+    assertTrue(
+      outputStreamCaptor.toString().contains("Input yang anda masukkan salah!")
+    );
   }
 
   @Test

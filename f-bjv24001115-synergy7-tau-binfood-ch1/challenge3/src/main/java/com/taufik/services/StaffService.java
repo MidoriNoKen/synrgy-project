@@ -49,7 +49,8 @@ public class StaffService {
       fullname == null ||
       gender == null ||
       bornDate == null ||
-      address == null
+      address == null ||
+      bornDate.isAfter(LocalDate.now()) // Menambahkan pengecekan bornDate
     ) {
       throw new IllegalArgumentException("Data yang dimasukkan tidak valid");
     }

@@ -2,6 +2,7 @@ package com.taufik;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.taufik.models.entities.Payment;
 import com.taufik.services.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,25 @@ public class PaymentTest {
   @BeforeEach
   void setUp() {
     PaymentService.clear();
+  }
+
+  @Test
+  void testInit() {
+    PaymentService paymentService = new PaymentService();
+    assertNotNull(paymentService);
+  }
+
+  @Test
+  void testConstructor() {
+    int paymentMethod = 1;
+    Long nominal = 50000L;
+
+    Payment payment = new Payment(paymentMethod, nominal);
+
+    assertNotNull(payment);
+    assertEquals(paymentMethod, payment.getPaymentMethod());
+    assertEquals("Cash", payment.getPaymentMethodSelected());
+    assertEquals(nominal, payment.getNominal());
   }
 
   @Test

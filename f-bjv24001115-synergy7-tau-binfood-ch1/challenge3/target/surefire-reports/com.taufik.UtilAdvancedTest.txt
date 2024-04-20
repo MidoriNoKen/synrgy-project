@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.taufik.UtilAdvancedTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.023 s <<< FAILURE! - in com.taufik.UtilAdvancedTest
+testPausedLineWithoutMessage  Time elapsed: 0.018 s  <<< ERROR!
+java.util.NoSuchElementException: No line found
+	at com.taufik.UtilAdvancedTest.testPausedLineWithoutMessage(UtilAdvancedTest.java:52)
+
+testHandleInputMismatchWithoutMessage  Time elapsed: 0.002 s  <<< ERROR!
+java.util.NoSuchElementException: No line found
+	at com.taufik.UtilAdvancedTest.testHandleInputMismatchWithoutMessage(UtilAdvancedTest.java:73)
+
+testPausedLineWithMessage  Time elapsed: 0.002 s  <<< ERROR!
+java.util.NoSuchElementException: No line found
+	at com.taufik.UtilAdvancedTest.testPausedLineWithMessage(UtilAdvancedTest.java:43)
+
+testHandleInputMismatchWithMessage  Time elapsed: 0.001 s  <<< ERROR!
+java.util.NoSuchElementException: No line found
+	at com.taufik.UtilAdvancedTest.testHandleInputMismatchWithMessage(UtilAdvancedTest.java:63)
+

@@ -47,6 +47,12 @@ public class AuthTest {
   }
 
   @Test
+  void testInit() {
+    AuthService authService = new AuthService();
+    assertNotNull(authService);
+  }
+
+  @Test
   void loginTest() {
     assertTrue(AuthService.validation(username, password).orElse(false));
     assertFalse(
