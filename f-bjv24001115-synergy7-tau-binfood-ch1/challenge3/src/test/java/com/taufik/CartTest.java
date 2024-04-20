@@ -35,6 +35,12 @@ public class CartTest {
   }
 
   @Test
+  void testInit() {
+    CartService cartService = new CartService();
+    assertNotNull(cartService);
+  }
+
+  @Test
   void testGetAll() {
     List<Cart> allCarts = CartService.getAll();
     assertNull(allCarts);

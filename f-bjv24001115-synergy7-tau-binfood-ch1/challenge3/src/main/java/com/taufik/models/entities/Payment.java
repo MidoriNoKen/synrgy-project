@@ -27,4 +27,8 @@ public class Payment {
   public static List<String> getAllPaymentMethods() {
     return paymentMethods;
   }
+
+  public int getPaymentMethod() {
+    return paymentMethods.indexOf(paymentMethodSelected) + 1;
+  }
 }
