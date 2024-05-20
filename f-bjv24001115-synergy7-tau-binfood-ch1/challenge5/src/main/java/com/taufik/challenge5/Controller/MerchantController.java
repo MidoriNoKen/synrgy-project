@@ -1,7 +1,6 @@
 package com.taufik.challenge5.Controller;
 
 import com.taufik.challenge5.Model.DTO.MerchantDTO;
-import com.taufik.challenge5.Model.Entity.Merchant;
 import com.taufik.challenge5.Service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
