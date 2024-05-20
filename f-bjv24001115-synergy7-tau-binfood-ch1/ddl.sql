@@ -1,47 +1,40 @@
--- Membuat tabel Users
 CREATE TABLE Users (
-    id UUID PRIMARY KEY,
-    username VARCHAR(255),
-    email_address VARCHAR(255),
-    password VARCHAR(255)
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email_address VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
--- Membuat tabel Merchant
 CREATE TABLE Merchant (
-    id UUID PRIMARY KEY,
-    merchant_name VARCHAR(255),
-    merchant_location VARCHAR(255),
-    open BOOLEAN
+    merchant_code INT AUTO_INCREMENT PRIMARY KEY,
+    merchant_name VARCHAR(100) NOT NULL,
+    merchant_location VARCHAR(255) NOT NULL,
+    open BOOLEAN DEFAULT TRUE
 );
 
--- Membuat tabel Product
 CREATE TABLE Product (
-    id UUID PRIMARY KEY,
-    product_name VARCHAR(255),
-    price DECIMAL(10, 2),
-    merchant_id UUID REFERENCES Merchant(id)
+    product_code INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    merchant_code INT,
+    FOREIGN KEY (merchant_code) REFERENCES Merchant(merchant_code)
 );
 
--- Membuat tabel Order
-CREATE TABLE Order (
-    id UUID PRIMARY KEY,
-    order_time TIMESTAMP,
-    destination_address VARCHAR(255),
-    user_id UUID REFERENCES Users(id),
-    completed BOOLEAN
+CREATE TABLE `Order` (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_time TIMESTAMP NOT NULL,
+    destination_address VARCHAR(255) NOT NULL,
+    user_id INT,
+    completed BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
--- Membuat tabel Order Detail
-CREATE TABLE Order_Detail (
-    id UUID PRIMARY KEY,
-    order_id UUID REFERENCES Order(id),
-    product_id UUID REFERENCES Product(id),
-    quantity INT,
-    total_price DECIMAL(10, 2)
+CREATE TABLE Order_detail (
+    order_id INT,
+    product_code INT,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (order_id, product_code),
+    FOREIGN KEY (order_id) REFERENCES `Order`(order_id),
+    FOREIGN KEY (product_code) REFERENCES Product(product_code)
 );
-
--- Menambahkan indeks untuk meningkatkan performa pencarian
-CREATE INDEX idx_user_id ON Order (user_id);
-CREATE INDEX idx_merchant_id ON Product (merchant_id);
-CREATE INDEX idx_order_id ON Order_Detail (order_id);
-CREATE INDEX idx_product_id ON Order_Detail (product_id);
