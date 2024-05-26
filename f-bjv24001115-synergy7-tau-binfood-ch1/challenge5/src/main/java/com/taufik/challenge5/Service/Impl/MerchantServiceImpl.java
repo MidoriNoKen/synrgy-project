@@ -32,34 +32,40 @@ public class MerchantServiceImpl implements MerchantService {
     public MerchantDTO show(Long code) {
         Merchant merchant = merchantRepository.findById(code)
                 .orElseThrow(() -> new RuntimeException("Merchant not found"));
+
         return convertToDTO(merchant);
     }
 
     @Override
     @Transactional
-    public void create(MerchantDTO merchantDTO) {
+    public MerchantDTO create(MerchantDTO merchantDTO) {
         Merchant merchant = new Merchant();
         merchant.setName(merchantDTO.getName());
         merchant.setLocation(merchantDTO.getLocation());
         merchant.setOpen(merchantDTO.getOpen());
         merchantRepository.save(merchant);
+        return convertToDTO(merchant);
     }
 
     @Override
     @Transactional
-    public void update(Long id, MerchantDTO merchantDTO) {
+    public MerchantDTO update(Long id, MerchantDTO merchantDTO) {
         Merchant merchant = merchantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Merchant not found"));
         merchant.setName(merchantDTO.getName());
         merchant.setLocation(merchantDTO.getLocation());
         merchant.setOpen(merchantDTO.getOpen());
         merchantRepository.save(merchant);
+        return convertToDTO(merchant);
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        merchantRepository.deleteById(id);
+    public Boolean delete(Long id) {
+        Merchant merchant = merchantRepository.findById(id).orElse(null);
+        if (merchant == null) return false;
+        merchantRepository.delete(merchant);
+        return true;
     }
 
     private MerchantDTO convertToDTO(Merchant merchant) {

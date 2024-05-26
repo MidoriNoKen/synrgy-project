@@ -22,7 +22,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> showUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.show(id));
+        UserDTO user = userService.show(id);
+        return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
     @PostMapping

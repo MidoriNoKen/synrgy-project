@@ -2,11 +2,13 @@ package com.taufik.challenge5.Controller;
 
 import com.taufik.challenge5.Model.DTO.MerchantDTO;
 import com.taufik.challenge5.Service.MerchantService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/merchants")
@@ -16,35 +18,35 @@ public class MerchantController {
     private MerchantService merchantService;
 
     @GetMapping
-    public ResponseEntity<List<MerchantDTO>> list(@RequestParam(required = false) Boolean open) {
+    public ResponseEntity<List<MerchantDTO>> listMerchants(@RequestParam(required = false) Boolean open) {
         return ResponseEntity.ok(merchantService.list(open));
     }
 
-    @GetMapping("/{code}")
-    public ResponseEntity<MerchantDTO> show(@PathVariable Long code) {
-        return ResponseEntity.ok(merchantService.show(code));
+    @GetMapping("/{id}")
+    public ResponseEntity<MerchantDTO> getMerchant(@PathVariable Long id) {
+        MerchantDTO merchant = merchantService.show(id);
+        return merchant != null ? ResponseEntity.ok(merchant) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody MerchantDTO merchantDTO) {
-        merchantService.create(merchantDTO);
-        return ResponseEntity.ok("Merchant created successfully");
+    public ResponseEntity<MerchantDTO> addMerchant(@RequestBody MerchantDTO merchant) {
+        MerchantDTO createdMerchant = merchantService.create(merchant);
+        return new ResponseEntity<>(createdMerchant, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{code}")
-    public ResponseEntity<String> update(@PathVariable Long code, @RequestBody MerchantDTO merchantDTO) {
-        merchantService.update(code, merchantDTO);
-        return ResponseEntity.ok("Merchant updated successfully");
+    @PutMapping("/{id}")
+    public ResponseEntity<MerchantDTO> updateMerchant(@PathVariable Long id, @RequestBody MerchantDTO merchant) {
+        MerchantDTO existingMerchant = merchantService.show(id);
+        if (existingMerchant == null) {
+            return ResponseEntity.notFound().build();
+        }
+        MerchantDTO updatedMerchant = merchantService.update(id, merchant);
+        return new ResponseEntity<>(updatedMerchant, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{code}")
-    public ResponseEntity<String> delete(@PathVariable Long code) {
-        merchantService.delete(code);
-        return ResponseEntity.ok("Merchant deleted successfully");
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
-        return ResponseEntity.status(404).body(e.getMessage());
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteMerchant(@PathVariable Long id) {
+        return merchantService.delete(id) ? ResponseEntity.ok("Merchant deleted Successfully")
+                : ResponseEntity.notFound().build();
     }
 }

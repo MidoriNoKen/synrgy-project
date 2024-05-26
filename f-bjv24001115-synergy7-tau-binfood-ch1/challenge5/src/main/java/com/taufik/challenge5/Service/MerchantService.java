@@ -10,9 +10,9 @@ public interface MerchantService {
 
     MerchantDTO show(Long id);
 
-    void create(MerchantDTO merchantDTO);
+    MerchantDTO create(MerchantDTO merchantDTO);
 
-    void update(Long id, MerchantDTO merchantDTO);
+    MerchantDTO update(Long id, MerchantDTO merchantDTO);
 
-    void delete(Long id);
+    Boolean delete(Long id);
 }

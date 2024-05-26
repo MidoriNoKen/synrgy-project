@@ -49,12 +49,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO show(Long userId) {
-        logger.info("Reading user with ID: {}", userId);
+    public UserDTO show(Long id) {
+        logger.info("Reading user with ID: {}", id);
 
-        User user = userRepository.read(userId);
+        User user = userRepository.read(id);
         if (user == null) {
-            logger.error("User with ID: {} not found", userId);
+            logger.error("User with ID: {} not found", id);
             return null;
         }
         UserDTO userDTO = new UserDTO();
@@ -85,11 +85,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDTO update(Long userId, UserDTO userDTO) {
+    public UserDTO update(Long id, UserDTO userDTO) {
         try {
-            logger.info("Updating user with ID: {}", userId);
+            logger.info("Updating user with ID: {}", id);
 
-            userRepository.update(userId, userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
+            userRepository.update(id, userDTO.getUsername(), userDTO.getEmail(), userDTO.getPassword());
 
             logger.debug("User updated: {}", userDTO.getUsername());
             return userDTO;
@@ -101,11 +101,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(Long userId) {
+    public void delete(Long id) {
         try {
-            logger.info("Deleting user with ID: {}", userId);
-            userRepository.delete(userId);
-            logger.debug("User deleted with ID: {}", userId);
+            logger.info("Deleting user with ID: {}", id);
+            userRepository.delete(id);
+            logger.debug("User deleted with ID: {}", id);
         } catch (Exception e) {
             logger.error("Failed to delete user: {}", e.getMessage());
         }

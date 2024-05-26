@@ -6,25 +6,25 @@ CREATE TABLE Users (
     password VARCHAR(255) NOT NULL
 );
 
--- Create Merchant table
-CREATE TABLE Merchant (
+-- Create Merchants table
+CREATE TABLE Merchants (
     code SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     location VARCHAR(255) NOT NULL,
     open BOOLEAN DEFAULT TRUE
 );
 
--- Create Product table
-CREATE TABLE Product (
+-- Create Products table
+CREATE TABLE Products (
     code SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     merchant_code BIGINT,
-    FOREIGN KEY (merchant_code) REFERENCES Merchant(code)
+    FOREIGN KEY (merchant_code) REFERENCES Merchants(code)
 );
 
--- Create Order table
-CREATE TABLE "Order" (
+-- Create Orders table
+CREATE TABLE Orders (
     id SERIAL PRIMARY KEY,
     date TIMESTAMP NOT NULL,
     address VARCHAR(255) NOT NULL,
@@ -33,14 +33,13 @@ CREATE TABLE "Order" (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
--- Create Order_detail table
-CREATE TABLE Order_detail (
-    id BIGINT,
+-- Create Orders_details table
+CREATE TABLE Order_details (
+    id SERIAL PRIMARY KEY,
     order_id BIGINT,
     product_code BIGINT,
     quantity BIGINT NOT NULL,
     total_price DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY (order_id, product_code),
-    FOREIGN KEY (order_id) REFERENCES "Order"(id),
-    FOREIGN KEY (product_code) REFERENCES Product(code)
+    FOREIGN KEY (order_id) REFERENCES Orders(id),
+    FOREIGN KEY (product_code) REFERENCES Products(code)
 );
