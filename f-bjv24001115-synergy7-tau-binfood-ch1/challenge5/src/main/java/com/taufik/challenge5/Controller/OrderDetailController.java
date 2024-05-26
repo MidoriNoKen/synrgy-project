@@ -19,11 +19,6 @@ public class OrderDetailController {
         return ResponseEntity.ok(orderDetailService.list());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<OrderDetailDTO> show(@PathVariable Long id) {
-        return ResponseEntity.ok(orderDetailService.show(id));
-    }
-
     @PostMapping
     public ResponseEntity<String> createOrderDetail(@RequestBody OrderDetailDTO orderDetailDTO) {
         orderDetailService.create(orderDetailDTO);

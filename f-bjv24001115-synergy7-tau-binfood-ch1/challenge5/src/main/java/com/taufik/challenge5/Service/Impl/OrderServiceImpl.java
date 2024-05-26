@@ -1,6 +1,7 @@
 package com.taufik.challenge5.Service.Impl;
 
 import com.taufik.challenge5.Model.DTO.OrderDTO;
+import com.taufik.challenge5.Model.DTO.OrderInvoiceDTO;
 import com.taufik.challenge5.Model.Entity.Order;
 import com.taufik.challenge5.Repository.OrderRepository;
 import com.taufik.challenge5.Service.OrderService;
@@ -24,6 +25,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderInvoiceDTO> listOrdersByUserId(Long userId) {
+        List<Order> orders = orderRepository.findByUserId(userId);
+        return orders.stream().map(this::convertToInvoiceDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public OrderDTO show(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         return convertToDTO(order);
@@ -33,9 +40,10 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void create(OrderDTO orderDTO) {
         Order order = new Order();
-        order.setUser(orderDTO.getUser());
-        order.setDate(orderDTO.getDate());
-        order.setOrderDetails(orderDTO.getOrderDetails());
+        order.setDate(order.getDate());
+        order.setAddress(order.getAddress());
+        order.setUser(order.getUser());
+        order.setMerchant(order.getMerchant());
         orderRepository.save(order);
     }
 
@@ -43,9 +51,10 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void update(Long id, OrderDTO orderDTO) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
-        order.setUser(orderDTO.getUser());
-        order.setDate(orderDTO.getDate());
-        order.setOrderDetails(orderDTO.getOrderDetails());
+        order.setDate(order.getDate());
+        order.setAddress(order.getAddress());
+        order.setUser(order.getUser());
+        order.setMerchant(order.getMerchant());
         orderRepository.save(order);
     }
 
@@ -58,9 +67,22 @@ public class OrderServiceImpl implements OrderService {
     private OrderDTO convertToDTO(Order order) {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
-        dto.setUser(order.getUser());
         dto.setDate(order.getDate());
-        dto.setOrderDetails(order.getOrderDetails());
+        dto.setAddress(order.getAddress());
+        dto.setUser(order.getUser());
+        dto.setMerchant(order.getMerchant());
+        return dto;
+    }
+
+    private OrderInvoiceDTO convertToInvoiceDTO(Order order) {
+        OrderInvoiceDTO dto = new OrderInvoiceDTO();
+        dto.setCompleted(order.isCompleted());
+        dto.setPrice(order.getPrice());
+        dto.setQuantity(order.getQuantity());
+        dto.setDate(order.getDate());
+        dto.setAddress(order.getAddress());
+        dto.setUsername(order.getUser().getUsername());
+        dto.setEmail(order.getUser().getEmail());
         return dto;
     }
 }

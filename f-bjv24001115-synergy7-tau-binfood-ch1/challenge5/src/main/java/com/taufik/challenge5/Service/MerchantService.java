@@ -1,7 +1,9 @@
 package com.taufik.challenge5.Service;
 
 import com.taufik.challenge5.Model.DTO.MerchantDTO;
+import com.taufik.challenge5.Model.DTO.MerchantReportDTO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MerchantService {
@@ -14,5 +16,7 @@ public interface MerchantService {
 
     MerchantDTO update(Long id, MerchantDTO merchantDTO);
 
-    Boolean delete(Long id);
+    boolean delete(Long id);
+
+    MerchantReportDTO generateReport(Long merchantCode, LocalDateTime startDate, LocalDateTime endDate);
 }

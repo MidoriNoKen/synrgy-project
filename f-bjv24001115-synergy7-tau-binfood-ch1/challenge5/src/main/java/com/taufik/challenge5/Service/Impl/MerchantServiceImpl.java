@@ -1,13 +1,19 @@
 package com.taufik.challenge5.Service.Impl;
 
 import com.taufik.challenge5.Model.DTO.MerchantDTO;
+import com.taufik.challenge5.Model.DTO.MerchantReportDTO;
 import com.taufik.challenge5.Model.Entity.Merchant;
+import com.taufik.challenge5.Model.Entity.Order;
 import com.taufik.challenge5.Repository.MerchantRepository;
+import com.taufik.challenge5.Repository.OrderRepository;
 import com.taufik.challenge5.Service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +22,9 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Autowired
     private MerchantRepository merchantRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public List<MerchantDTO> list(Boolean open) {
@@ -29,10 +38,9 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public MerchantDTO show(Long code) {
-        Merchant merchant = merchantRepository.findById(code)
+    public MerchantDTO show(Long id) {
+        Merchant merchant = merchantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Merchant not found"));
-
         return convertToDTO(merchant);
     }
 
@@ -61,11 +69,33 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     @Transactional
-    public Boolean delete(Long id) {
+    public boolean delete(Long id) {
         Merchant merchant = merchantRepository.findById(id).orElse(null);
-        if (merchant == null) return false;
+        if (merchant == null)
+            return false;
         merchantRepository.delete(merchant);
         return true;
+    }
+
+    @Override
+    public MerchantReportDTO generateReport(Long code, LocalDateTime startDate, LocalDateTime endDate) {
+        Merchant merchant = merchantRepository.findById(code)
+                .orElseThrow(() -> new RuntimeException("Merchant not found"));
+
+        List<Order> orders = orderRepository.findByMerchantCodeAndDateBetween(code, startDate, endDate);
+
+        BigDecimal totalIncome = orders.stream()
+                .filter(order -> order.isCompleted())
+                .map(Order::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        MerchantReportDTO merchantReport = new MerchantReportDTO();
+        merchantReport.setMerchantName(merchant.getName());
+        merchantReport.setStartDate(startDate);
+        merchantReport.setEndDate(endDate);
+        merchantReport.setTotalIncome(totalIncome);
+
+        return merchantReport;
     }
 
     private MerchantDTO convertToDTO(Merchant merchant) {

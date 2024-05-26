@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,9 +26,20 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "merchant_code", nullable = false)
+    private Merchant merchant;
+
     @Column(name = "completed", nullable = false)
     private Boolean completed = false;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderDetail> orderDetails;
+    @Column(name = "quantity", nullable = true)
+    private int quantity = 0;
+
+    @Column(name = "price", nullable = true)
+    private BigDecimal price = BigDecimal.ZERO;
+
+    public boolean isCompleted() {
+        return completed;
+    }
 }

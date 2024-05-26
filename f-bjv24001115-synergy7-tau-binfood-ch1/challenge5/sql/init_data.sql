@@ -20,11 +20,11 @@ VALUES
 ('Product 3', 30.00, 3);  -- Assuming 'Merchant C' has code 3
 
 -- Insert data into Orders table
-INSERT INTO Orders (date, address, user_id, completed)
+INSERT INTO Orders (date, address, user_id, merchant_code, completed, quantity, price)
 VALUES 
-('2024-05-23 10:00:00', 'Address 1', 1, FALSE),  -- Assuming 'john_doe' has id 1
-('2024-05-23 11:00:00', 'Address 2', 2, TRUE),   -- Assuming 'jane_smith' has id 2
-('2024-05-23 12:00:00', 'Address 3', 3, FALSE);  -- Assuming 'alice_wonder' has id 3
+('2024-05-23 10:00:00', 'Address 1', 1, 1, FALSE, 5, 100000),  -- Assuming 'john_doe' has id 1
+('2024-05-23 11:00:00', 'Address 2', 2, 1, TRUE, 4, 20000),   -- Assuming 'jane_smith' has id 2
+('2024-05-23 12:00:00', 'Address 3', 3, 1, FALSE, 2, 200000);  -- Assuming 'alice_wonder' has id 3
 
 -- Insert data into Order_details table
 INSERT INTO Order_details (order_id, product_code, quantity, total_price)

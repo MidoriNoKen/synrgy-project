@@ -24,7 +24,7 @@ public class OrderDetail {
     private Product product;
 
     @Column(name = "quantity", nullable = false)
-    private Long quantity;
+    private int quantity;
 
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
