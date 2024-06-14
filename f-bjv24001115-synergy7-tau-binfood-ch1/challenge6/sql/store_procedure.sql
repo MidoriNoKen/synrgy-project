@@ -24,7 +24,7 @@ CREATE OR REPLACE FUNCTION show_user(
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT u.id, u.username, u.email, u.password
+    SELECT u.id, u.username, u.email, u.password, u.phone, u.address
     FROM Users u
     WHERE u.id = p_id;
 END;
@@ -34,14 +34,16 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION create_user(
     p_username VARCHAR,
     p_email VARCHAR,
-    p_password VARCHAR
+    p_password VARCHAR,
+    p_phone VARCHAR,
+    p_address VARCHAR
 ) RETURNS VARCHAR AS $$
 DECLARE
     result_message VARCHAR;
 BEGIN
     BEGIN
-        INSERT INTO Users (username, email, password)
-        VALUES (p_username, p_email, p_password);
+        INSERT INTO Users (username, email, password, phone, address)
+        VALUES (p_username, p_email, p_password, p_phone, p_address);
         result_message := 'User created successfully.';
         RAISE NOTICE 'User % created successfully.', p_username;
     EXCEPTION WHEN others THEN
@@ -57,13 +59,17 @@ CREATE OR REPLACE FUNCTION update_user(
     p_id BIGINT,
     p_username VARCHAR,
     p_email VARCHAR,
-    p_password VARCHAR
+    p_password VARCHAR,
+    p_phone VARCHAR,
+    p_address VARCHAR
 ) RETURNS VARCHAR AS $$
 BEGIN
     UPDATE Users
     SET username = p_username,
         email = p_email,
-        password = p_password
+        password = p_password,
+        phone = p_phone,
+        address = p_address
     WHERE id = p_id;
     
     IF FOUND THEN

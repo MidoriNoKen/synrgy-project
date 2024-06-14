@@ -1,9 +1,9 @@
 -- Insert data into Users table
-INSERT INTO Users (username, email, password)
+INSERT INTO Users (username, email, password, phone, address, created_at, updated_at, deleted, role)
 VALUES 
-('john_doe', 'john@example.com', 'password123'),
-('jane_smith', 'jane@example.com', 'password456'),
-('alice_wonder', 'alice@example.com', 'password789');
+('taufik', 'taufik@taufik.com', MD5('313131'), '1234567890', 'Address 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE, 'customer'),
+('jane_smith', 'jane@example.com', MD5('password456'), '0987654321', 'Address 2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE, 'customer'),
+('alice_wonder', 'alice@example.com', MD5('password789'), '9876543210', 'Address 3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, FALSE, 'customer');
 
 -- Insert data into Merchants table
 INSERT INTO Merchants (name, location, open)

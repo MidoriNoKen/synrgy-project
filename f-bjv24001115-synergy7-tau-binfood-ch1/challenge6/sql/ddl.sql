@@ -6,39 +6,10 @@ CREATE TABLE Users (
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(20) NOT NULL UNIQUE,
     address VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL DEFAULT 'customer',
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
-    deleted BOOLEAN DEFAULT FALSE
-);
-
--- Create User Roles table
-CREATE TABLE User_roles (
-    user_id BIGINT,
-    role_id BIGINT,
-    PRIMARY KEY (user_id, role_id),
-    FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (role_id) REFERENCES Roles(id)
-);
-
--- Create Roles table
-CREATE TABLE Roles (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-);
-
--- Create Role Permissions table
-CREATE TABLE Role_permissions (
-    role_id BIGINT,
-    permission_id BIGINT,
-    PRIMARY KEY (role_id, permission_id),
-    FOREIGN KEY (role_id) REFERENCES Roles(id),
-    FOREIGN KEY (permission_id) REFERENCES Permissions(id)
-);
-
--- Create Permissions table
-CREATE TABLE Permissions (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+    deleted BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 -- Create Merchants table
